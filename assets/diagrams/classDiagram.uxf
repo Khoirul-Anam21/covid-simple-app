@@ -1,0 +1,47 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>342</x><y>10</y><w>210</w><h>150</h></coordinates><panel_attributes>Covid
+--
+ - int: death
+ - int: confirm
+ - int: cured 
+ - boolean: isGlobal
+--
+ # getFetchDeath(query)
+ # getFetchCured(query)
+ # getFetchConfirm(query)
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>512</x><y>260</y><w>210</w><h>190</h></coordinates><panel_attributes>Country
+--
+String: countryName
+--
+ + overr getFetchDeath(countryName) async: 
+ + overr getFetchConfirm(countryName) async:
+ + overr getFetchCured(countryName) async:
+note: Function body - &gt; fetch data from API 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>138</x><y>260</y><w>210</w><h>190</h></coordinates><panel_attributes>CovidGlobal
+--
+ - List&lt;Country&gt;: confirmedCountries
+ - List&lt;Country&gt;: deathsCountries
+ - List&lt;Country&gt;: coredCountries
+--
+ + overr getFetchDeath(global) async: 
+ + overr getFetchConfirm(global) async:
+ + overr getFetchCured(global) async:
+note: Function body - &gt; fetch data from API 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>0</y><w>210</w><h>170</h></coordinates><panel_attributes>API Service (Country)
+--
+ - String: countryName
+ - int : death
+ - int : cured
+ - int : confirmed
+- String : defaultAPIUrl = covidmathdro.id/api/...
+--
+ + fetchDeath(query) async : void
+ + fetchCured(query) async : void
+ + fetchConfirm(query) async : void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>235</x><y>150</y><w>220</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>200;10;200;60;10;60;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>151</y><w>200</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60;180;60;180;110</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>351</y><w>200</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;180;10</additional_attributes></element><element><id>Relation</id><coordinates><x>158</x><y>161</y><w>90</w><h>120</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..1
+getData &gt;</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>38</x><y>161</y><w>590</w><h>340</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..1
+getData&gt;</panel_attributes><additional_attributes>10;10;10;320;550;320;550;290</additional_attributes></element></diagram>
