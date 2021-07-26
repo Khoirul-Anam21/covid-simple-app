@@ -3,6 +3,7 @@ abstract class Covid {
   dynamic confirmed;
   dynamic cured;
   String? lastUpdate;
+  String? name;
 
   Future<void> getFetchConfirmed();
   Future<void> getFetchDeath();

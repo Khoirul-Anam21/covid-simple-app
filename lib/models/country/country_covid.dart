@@ -5,6 +5,7 @@ import 'package:covid_simple_tracker/services/api_country_service.dart';
 
 
 class CovidCountry extends Covid {
+  @override
   String? name;
 
   CovidCountry(this.name);

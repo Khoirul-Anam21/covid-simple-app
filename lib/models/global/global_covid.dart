@@ -2,7 +2,9 @@ import 'package:covid_simple_tracker/models/covid.dart';
 import 'package:covid_simple_tracker/services/api_global_service.dart';
 
 class GlobalCovid extends Covid {
-  String name = 'Global';
+  @override
+  String? name = 'Global';
+
   CovidGlobalAPIService service = CovidGlobalAPIService();
 
    ///[getFetchConfirmed] getting fetch of confirmed count from global/all country from the API service to get data

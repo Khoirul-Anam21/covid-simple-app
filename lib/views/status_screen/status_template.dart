@@ -35,75 +35,141 @@ class _CovidStatusIndicatorState extends State<CovidStatusIndicator> {
     var alignLeft = CrossAxisAlignment.start;
     return Container(
       child: Column(children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        FutureBuilder<Covid>(
+            future: covidData,
+            builder: (context, snapshot) {
+              String countryStatus = '';
+              dynamic lastUpdate;
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                countryStatus = 'Loading...';
+                lastUpdate = 'Loading...';
+              } else if (snapshot.hasError) {
+                countryStatus = '${snapshot.error}';
+                lastUpdate = '${snapshot.error}';
+              } else {
+                countryStatus = '${snapshot.data!.name!}';
+                lastUpdate = '${snapshot.data!.lastUpdate}';
+              }
+              var date = DateTime.tryParse(lastUpdate);
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Status Covid',
-                      style: Theme.of(context).textTheme.headline5),
-                  Text('Last Update', style: captionStyle)
-                ]),
-            IconButton(
-                color: iconColor, onPressed: () {}, icon: Icon(Icons.refresh)),
-          ],
-        ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Status Covid: $countryStatus',
+                            style: Theme.of(context).textTheme.headline5),
+                        Text(
+                            'Last Update $date',
+                            style: captionStyle)
+                      ]),
+                  IconButton(
+                      color: iconColor,
+                      onPressed: () {
+                        setState(() {
+                          covidData = getData();
+                        });
+                      },
+                      icon: Icon(Icons.refresh)),
+                ],
+              );
+            }),
         const SizedBox(
           height: 10,
         ),
-        Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18), color: recoveredColor),
-            child: Column(
-              crossAxisAlignment: alignLeft,
-              children: <Widget>[
-                Text('Sembuh', style: captionStyle),
-                const SizedBox(height: 10),
-                Text('90000', style: bodyStyle),
-                const SizedBox(
-                  height: 20,
-                )
-              ],
-            )),
-        Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18), color: confirmedColor),
-            child: Column(
-              crossAxisAlignment: alignLeft,
-              children: <Widget>[
-                Text('Sembuh', style: captionStyle),
-                const SizedBox(height: 10),
-                Text('100000', style: bodyStyle),
-                const SizedBox(
-                  height: 20,
-                )
-              ],
-            )),
-        Container(
-            width: double.infinity,
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18), color: deathsColor),
-            child: Column(
-              crossAxisAlignment: alignLeft,
-              children: <Widget>[
-                Text('Sembuh', style: captionStyle),
-                const SizedBox(height: 10),
-                Text('30000', style: bodyStyle),
-                const SizedBox(
-                  height: 20,
-                )
-              ],
-            )),
+        renderCovidStats(alignLeft, captionStyle!, bodyStyle!),
       ]),
     );
+  }
+
+  Widget renderCovidStats(CrossAxisAlignment alignLeft, TextStyle captionStyle,
+      TextStyle bodyStyle) {
+    String loading = 'Loading...';
+    String error = 'no data';
+    String death = '';
+    String recovered = '';
+    String confirmed = '';
+
+    return FutureBuilder<Covid>(
+        future: covidData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            confirmed = loading;
+            death = loading;
+            recovered = loading;
+          } else if (snapshot.hasError) {
+            confirmed = error;
+            death = error;
+            recovered = error;
+          } else {
+            confirmed = '${snapshot.data!.confirmed}';
+            death = '${snapshot.data!.death}';
+            recovered = '${snapshot.data!.cured}';
+          }
+          return Column(
+            children: [
+              Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      color: recoveredColor),
+                  child: Column(
+                    crossAxisAlignment: alignLeft,
+                    children: <Widget>[
+                      Text('Sembuh', style: captionStyle),
+                      const SizedBox(height: 10),
+                      Text('$recovered', style: bodyStyle),
+                      Text('Kasus', style: captionStyle),
+                      const SizedBox(
+                        height: 14,
+                      )
+                    ],
+                  )),
+              Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      color: confirmedColor),
+                  child: Column(
+                    crossAxisAlignment: alignLeft,
+                    children: <Widget>[
+                      Text('Terkonfirmasi', style: captionStyle),
+                      const SizedBox(height: 10),
+                      Text('$confirmed', style: bodyStyle),
+                      Text('Kasus', style: captionStyle),
+                      const SizedBox(
+                        height: 14,
+                      )
+                    ],
+                  )),
+              Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      color: deathsColor),
+                  child: Column(
+                    crossAxisAlignment: alignLeft,
+                    children: <Widget>[
+                      Text('Sembuh', style: captionStyle),
+                      const SizedBox(height: 10),
+                      Text('$death', style: bodyStyle),
+                      Text('Kasus', style: captionStyle),
+                      const SizedBox(
+                        height: 14,
+                      )
+                    ],
+                  )),
+            ],
+          );
+        });
   }
 }
