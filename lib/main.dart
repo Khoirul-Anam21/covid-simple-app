@@ -1,3 +1,4 @@
+import 'package:covid_simple_tracker/views/global_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
               caption: GoogleFonts.roboto(
                   fontSize: 12, color: textColor.withOpacity(0.65)),
               bodyText1: GoogleFonts.roboto(
-                  fontSize: 34,
+                  fontSize: 36,
                   fontWeight: FontWeight.bold,
                   color: textColor))),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     List<Widget> screens = <Widget>[
-      Center(child: Text('Global Status')),
+      GlobalScreen(),
       Center(child: Text('Status per Country')),
       Center(child: Text('Setting'))
     ];
@@ -63,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                 child: GNav(
                   color: iconColor.withOpacity(0.6),
                   activeColor: iconColor.withOpacity(0.8),
