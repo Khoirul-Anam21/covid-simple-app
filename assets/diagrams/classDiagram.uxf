@@ -1,24 +1,32 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>342</x><y>10</y><w>210</w><h>150</h></coordinates><panel_attributes>Covid
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>572</x><y>0</y><w>210</w><h>150</h></coordinates><panel_attributes>CovidSource
 --
  - int: death
  - int: confirm
  - int: cured 
- - boolean: isGlobal
+
 --
  # getFetchDeath(query)
  # getFetchCured(query)
  # getFetchConfirm(query)
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>512</x><y>260</y><w>210</w><h>190</h></coordinates><panel_attributes>Country
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>742</x><y>250</y><w>210</w><h>190</h></coordinates><panel_attributes>Country(String name)
 --
 String: countryName
+ - int: death
+ - int: confirm
+ - int: cured 
+ - boolean: isGlobal
 --
  + overr getFetchDeath(countryName) async: 
  + overr getFetchConfirm(countryName) async:
  + overr getFetchCured(countryName) async:
 note: Function body - &gt; fetch data from API 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>138</x><y>260</y><w>210</w><h>190</h></coordinates><panel_attributes>CovidGlobal
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>368</x><y>250</y><w>210</w><h>200</h></coordinates><panel_attributes>CovidGlobal (String name)
 --
+  - int: death
+ - int: confirm
+ - int: cured 
+ - boolean: isGlobal
  - List&lt;Country&gt;: confirmedCountries
  - List&lt;Country&gt;: deathsCountries
  - List&lt;Country&gt;: coredCountries
@@ -27,21 +35,26 @@ note: Function body - &gt; fetch data from API
  + overr getFetchConfirm(global) async:
  + overr getFetchCured(global) async:
 note: Function body - &gt; fetch data from API 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>0</y><w>210</w><h>170</h></coordinates><panel_attributes>API Service (Country)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>300</y><w>210</w><h>100</h></coordinates><panel_attributes>API Service (Country)
 --
  - String: countryName
- - int : death
- - int : cured
- - int : confirmed
 - String : defaultAPIUrl = covidmathdro.id/api/...
 --
- + fetchDeath(query) async : void
- + fetchCured(query) async : void
- + fetchConfirm(query) async : void
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>235</x><y>150</y><w>220</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>200;10;200;60;10;60;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>151</y><w>200</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60;180;60;180;110</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>351</y><w>200</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;180;10</additional_attributes></element><element><id>Relation</id><coordinates><x>158</x><y>161</y><w>90</w><h>120</h></coordinates><panel_attributes>lt=-
+ + getCountryCount() async : dynamic
+ + getCountryDetail() async : dynamic
+ + getLastUpdate() async : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>465</x><y>140</y><w>220</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>200;10;200;60;10;60;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>670</x><y>141</y><w>200</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60;180;60;180;110</additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>331</y><w>190</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;19;170;20</additional_attributes></element><element><id>Relation</id><coordinates><x>198</x><y>351</y><w>660</w><h>140</h></coordinates><panel_attributes>lt=-
 m1=0..n
 m2=0..1
-getData &gt;</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>38</x><y>161</y><w>590</w><h>340</h></coordinates><panel_attributes>lt=-
+getData&gt;</panel_attributes><additional_attributes>10;19;80;20;80;120;620;120;620;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>36</y><w>210</w><h>100</h></coordinates><panel_attributes>GlobalAPIService
+--
+
+- String : defaultAPIUrl = covidmathdro.id/api/...
+--
+ + getGlobalData() async : dynamic
+ + getLastUpdate()async: String
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>340</x><y>96</y><w>150</w><h>170</h></coordinates><panel_attributes>lt=-
 m1=0..n
 m2=0..1
-getData&gt;</panel_attributes><additional_attributes>10;10;10;320;550;320;550;290</additional_attributes></element></diagram>
+getData &gt;</panel_attributes><additional_attributes>10;20;110;20;110;150</additional_attributes></element></diagram>
