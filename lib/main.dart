@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:covid_simple_tracker/themes/mainColours.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -11,8 +15,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          scaffoldBackgroundColor: mainBackgroundColor,
+          textTheme: TextTheme(
+              headline6: GoogleFonts.roboto(
+                  fontSize: 14, color: textColor.withOpacity(0.8)),
+              headline5: GoogleFonts.roboto(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: textColor.withOpacity(0.65)),
+              caption: GoogleFonts.roboto(
+                  fontSize: 12, color: textColor.withOpacity(0.65)),
+              bodyText1: GoogleFonts.roboto(
+                  fontSize: 34,
+                  fontWeight: FontWeight.bold,
+                  color: textColor))),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -28,81 +44,45 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  bool _isRunning = true;
-
-  void startCount() async {
-    while (_isRunning == true) {
-      await Future.delayed(Duration(seconds: 1)).then((value) {
-        setState(() {
-          _counter++;
-        });
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    startCount();
-    super.initState();
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      _isRunning = !_isRunning;
-    });
-  }
-
+  int _index = 0;
+  EdgeInsets tabsPadding = EdgeInsets.symmetric(vertical: 12, horizontal: 18);
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
+    List<Widget> screens = <Widget>[
+      Center(child: Text('Global Status')),
+      Center(child: Text('Status per Country')),
+      Center(child: Text('Setting'))
+    ];
+    
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+        body: screens.elementAt(_index),
+        bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: mainBottomNavbarColor,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+            child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                child: GNav(
+                  color: iconColor.withOpacity(0.6),
+                  activeColor: iconColor.withOpacity(0.8),
+                  rippleColor: Colors.grey[300]!,
+                  hoverColor: Colors.grey[100]!,
+                  tabBackgroundColor: Colors.grey[850]!,
+                  duration: Duration(milliseconds: 450),
+                  selectedIndex: _index,
+                  onTabChange: (index) {
+                    setState(() {
+                      _index = index;
+                    });
+                  },
+                  gap: 8,
+                  tabs: [
+                    GButton(padding: tabsPadding, icon: Icons.public, text: 'Global'),
+                    GButton(padding:tabsPadding,icon: Icons.list, text: 'Countries'),
+                    GButton(padding: tabsPadding, icon: Icons.settings, text: 'Setting')
+                  ],
+                ))));
   }
 }
