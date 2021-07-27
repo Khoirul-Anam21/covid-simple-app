@@ -1,5 +1,6 @@
 import 'package:covid_simple_tracker/services/api_country_list.dart';
 import 'package:covid_simple_tracker/services/api_country_service.dart';
+import 'package:covid_simple_tracker/themes/mainColours.dart';
 import 'package:covid_simple_tracker/views/country/provice_screen.dart';
 import 'package:covid_simple_tracker/views/listing_screen/list_tile.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +30,6 @@ class _ListCountryState extends State<ListCountry> {
     return countries;
   }
 
-  void navigate() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (builder) => ProvinceScreen(countryName: countryName)));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,11 +47,31 @@ class _ListCountryState extends State<ListCountry> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (builder, index) {
                   countryName = snapshot.data![index]['name'];
-                  return ListTileTemplate(
-                    title: snapshot.data![index]['name'],
-                    onTap: () {
-                      navigate();
-                    },
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 8),
+                      title: Text(
+                        countryName,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ProvinceScreen(countryName: snapshot.data![index]['name']))),
+                      tileColor: tileListColor,
+                      leading: CircleAvatar(
+                        backgroundColor: logoCountryColor,
+                        child: Text('${countryName[0].toUpperCase()}${countryName[1].toUpperCase()}'),
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(
+                            color: borderColor,
+                          )),
+                    ),
                   );
                 });
           }),
