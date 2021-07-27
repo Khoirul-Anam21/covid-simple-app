@@ -1,4 +1,7 @@
-import 'package:covid_simple_tracker/views/global_screen.dart';
+import 'package:covid_simple_tracker/models/country/country_covid.dart';
+import 'package:covid_simple_tracker/views/country/country_screen.dart';
+import 'package:covid_simple_tracker/views/global/global_screen.dart';
+import 'package:covid_simple_tracker/views/listing_screen/list_template.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -52,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     List<Widget> screens = <Widget>[
       GlobalScreen(),
-      Center(child: Text('Status per Country')),
+      CountriesScreen(),
       Center(child: Text('Setting'))
     ];
     
