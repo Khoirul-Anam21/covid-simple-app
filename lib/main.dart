@@ -2,7 +2,7 @@ import 'package:covid_simple_tracker/models/country/country_covid.dart';
 import 'package:covid_simple_tracker/views/country/country_screen.dart';
 import 'package:covid_simple_tracker/views/country/provice_screen.dart';
 import 'package:covid_simple_tracker/views/global/global_screen.dart';
-import 'package:covid_simple_tracker/views/listing_screen/list_countries.dart';
+import 'package:covid_simple_tracker/views/country/list_countries.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -18,8 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        primaryColor: mainBottomNavbarColor,
           scaffoldBackgroundColor: mainBackgroundColor,
           textTheme: TextTheme(
               headline6: GoogleFonts.roboto(

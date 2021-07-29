@@ -34,19 +34,22 @@ class _ProvinceScreenState extends State<ProvinceScreen> {
       appBar: AppBar(
         title: Text('Provinsi Tersedia'),
       ),
-      body: FutureBuilder<List>(
-        future: provinces,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text('$snapshot.Error');
-          }
-          return ListProvinceTemplate(
-            defaultName: widget.countryName,
-            datas: snapshot.data,
-          );
-        },
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: FutureBuilder<List>(
+          future: provinces,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('$snapshot.Error');
+            }
+            return ListProvinceTemplate(
+              defaultName: widget.countryName,
+              datas: snapshot.data,
+            );
+          },
+        ),
       ),
     );
   }
@@ -62,6 +65,7 @@ class ListProvinceTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+        addAutomaticKeepAlives: true,
         itemCount: datas!.length,
         itemBuilder: (context, index) {
           bool isEmpty = datas!.length == 1;
@@ -71,8 +75,10 @@ class ListProvinceTemplate extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.only(bottom: 10),
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-              title: Text(provinceName, style: Theme.of(context).textTheme.headline6),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              title: Text(provinceName,
+                  style: Theme.of(context).textTheme.headline6),
               onTap: () async {
                 Covid provinceCovid = CovidProvince(
                     '${datas![index]['provinceState']}',
@@ -82,19 +88,21 @@ class ListProvinceTemplate extends StatelessWidget {
                 await provinceCovid.getFetchCured();
                 await provinceCovid.getLastUpdate();
                 await provinceCovid.getFetchDeath();
+                print(datas![index]['active']);//hospitalised
                 print(
                     '${provinceCovid.confirmed}, ${provinceCovid.cured}, ${provinceCovid.death}, ${provinceCovid.lastUpdate}');
               },
               tileColor: tileListColor,
-        leading: CircleAvatar(
-            backgroundColor: logoCountryColor,
-            child: Text('${provinceName[0].toUpperCase()}${provinceName[1].toLowerCase()}'),
-        ),
-        shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-              side: BorderSide(
-                color: borderColor,
-              )),
+              leading: CircleAvatar(
+                backgroundColor: logoCountryColor,
+                child: Text(
+                    '${provinceName[0].toUpperCase()}${provinceName[1].toLowerCase()}'),
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(
+                    color: borderColor,
+                  )),
             ),
           );
         });

@@ -23,7 +23,7 @@ class _CovidStatusIndicatorState extends State<CovidStatusIndicator> {
     covidData = getData();
     tesFetch();
   }
-  
+
 //tes
   Future<dynamic> tesFetch() async {
     if (widget.moreDetail != null) {
@@ -60,6 +60,7 @@ class _CovidStatusIndicatorState extends State<CovidStatusIndicator> {
               } else if (snapshot.hasError) {
                 countryStatus = '${snapshot.error}';
                 lastUpdate = '${snapshot.error}';
+                print(countryStatus);
               } else {
                 countryStatus = '${snapshot.data!.name!}';
                 lastUpdate = '${snapshot.data!.lastUpdate}';
