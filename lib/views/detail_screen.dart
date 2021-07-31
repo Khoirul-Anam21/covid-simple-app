@@ -30,69 +30,45 @@ class CountryDetail extends StatelessWidget {
           Container(
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: CovidStatusIndicator(covid: covidInfo)),
-          DraggableScrollableSheet(
-              initialChildSize: 0.17,
-              minChildSize: 0.17,
-              maxChildSize: 0.8,
-              builder: (context, scrollController) {
-                return SingleChildScrollView(
-                  controller: scrollController,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: borderColor),
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
-                      ),
-                    padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 0),
-                    child: Stack(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            child: ListView(
-                                shrinkWrap: true,
-                                physics: BouncingScrollPhysics(),
-                                children: List.generate(20, (index) {
-                                  return ListTile(
-                                      title: Text('Saya Urutan ke $index',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6));
-                                })),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            color: Colors.amber,
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomPaint(painter: LineDraggerPainter()),
-                          )
-                        ],
-                      ),
-                  ),
-                );
-              })
+          DetailProvinsi()
         ],
       ),
     );
   }
 }
 
-class LineDraggerPainter extends CustomPainter {
+class DetailProvinsi extends StatelessWidget {
+  const DetailProvinsi({
+    Key? key,
+  }) : super(key: key);
+
   @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = Colors.white30
-      ..strokeWidth = 1.0;
-    Offset point1 = Offset((size.width / 2) - 20, 0);
-    Offset point2 = Offset((size.width / 2) + 20, 0);
-    canvas.drawLine(point1, point2, paint);
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+        initialChildSize: 0.17,
+        minChildSize: 0.17,
+        maxChildSize: 0.8,
+        builder: (context, scrollController) {
+          return Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: borderColor),
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
+              ),
+            child: Container(
+              width: double.infinity,
+              child: ListView(
+                controller: scrollController,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  children: <Widget>[
+                    Text('Tarik untuk melihat detail per provinsi', style: Theme.of(context).textTheme.caption),
+                    Text('Detail Provinsi', style: Theme.of(context).textTheme.headline5)
+                  ]),
+            ),
+          );
+        });
   }
-
-  @override
-  bool shouldRepaint(LineDraggerPainter oldDelegate) => false;
-
-  @override
-  bool shouldRebuildSemantics(LineDraggerPainter oldDelegate) => false;
 }

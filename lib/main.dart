@@ -3,13 +3,19 @@ import 'package:covid_simple_tracker/views/country/country_screen.dart';
 import 'package:covid_simple_tracker/views/country/provice_screen.dart';
 import 'package:covid_simple_tracker/views/global/global_screen.dart';
 import 'package:covid_simple_tracker/views/country/list_countries.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:covid_simple_tracker/themes/mainColours.dart';
 
 
 void main() {
+  // LicenseRegistry.addLicense(()async*{
+  //   final license = await rootBundle.loadString('google_fonts/OFL.txt');
+  //   yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  // });
   runApp(MyApp());
 }
 
