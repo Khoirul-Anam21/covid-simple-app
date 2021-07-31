@@ -13,6 +13,7 @@ class CovidCountry extends Covid {
   String? get getName {
     return name;
   }
+  
 
   ///[getFetchConfirmed] getting fetch of confirmed count from specific country from the API service to get data
   @override

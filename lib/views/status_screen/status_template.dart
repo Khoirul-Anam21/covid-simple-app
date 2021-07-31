@@ -1,10 +1,13 @@
+import 'package:covid_simple_tracker/models/additional_stats.dart';
 import 'package:covid_simple_tracker/models/covid.dart';
 import 'package:covid_simple_tracker/themes/mainColours.dart';
 import 'package:flutter/material.dart';
 
 class CovidStatusIndicator extends StatefulWidget {
-  const CovidStatusIndicator({Key? key, required this.covid}) : super(key: key);
+  const CovidStatusIndicator({Key? key, required this.covid, this.moreDetail})
+      : super(key: key);
   final Covid covid;
+  final AdditionalDetail? moreDetail;
 
   @override
   _CovidStatusIndicatorState createState() => _CovidStatusIndicatorState();
@@ -18,6 +21,17 @@ class _CovidStatusIndicatorState extends State<CovidStatusIndicator> {
     super.initState();
     getData();
     covidData = getData();
+    tesFetch();
+  }
+
+//tes
+  Future<dynamic> tesFetch() async {
+    if (widget.moreDetail != null) {
+      List datas = await widget.moreDetail!.getProvinceOfCountry();
+      print(datas);
+    } else {
+      print('failed');
+    }
   }
 
   Future<Covid> getData() async {
@@ -46,6 +60,7 @@ class _CovidStatusIndicatorState extends State<CovidStatusIndicator> {
               } else if (snapshot.hasError) {
                 countryStatus = '${snapshot.error}';
                 lastUpdate = '${snapshot.error}';
+                print(countryStatus);
               } else {
                 countryStatus = '${snapshot.data!.name!}';
                 lastUpdate = '${snapshot.data!.lastUpdate}';
@@ -59,9 +74,7 @@ class _CovidStatusIndicatorState extends State<CovidStatusIndicator> {
                       children: <Widget>[
                         Text('Status Covid: $countryStatus',
                             style: Theme.of(context).textTheme.headline5),
-                        Text(
-                            'Last Update $date',
-                            style: captionStyle)
+                        Text('Last Update $date', style: captionStyle)
                       ]),
                   IconButton(
                       color: iconColor,
