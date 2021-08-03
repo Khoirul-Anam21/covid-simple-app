@@ -69,13 +69,15 @@ class _CovidStatusIndicatorState extends State<CovidStatusIndicator> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text('Status Covid: $countryStatus',
-                            style: Theme.of(context).textTheme.headline5),
-                        Text('Last Update $date', style: captionStyle)
-                      ]),
+                  Flexible(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('Status Covid: $countryStatus',
+                              style: Theme.of(context).textTheme.headline5),
+                          Text('Last Update $date', style: captionStyle)
+                        ]),
+                  ),
                   IconButton(
                       color: iconColor,
                       onPressed: () {

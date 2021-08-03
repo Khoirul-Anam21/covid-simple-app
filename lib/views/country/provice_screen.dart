@@ -31,26 +31,25 @@ class _ProvinceScreenState extends State<ProvinceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Provinsi Tersedia'),
-      ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: FutureBuilder<List>(
-          future: provinces,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('$snapshot.Error');
-            }
-            return ListProvinceTemplate(
-              defaultName: widget.countryName,
-              datas: snapshot.data!,
-            );
-          },
-        ),
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: FutureBuilder<List>(
+        future: provinces,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SizedBox(
+              height: 120,
+              width: double.infinity,
+                child: Center(child: CircularProgressIndicator()));
+          } else if (snapshot.hasError) {
+            return Text('$snapshot.Error');
+          }
+          return ListProvinceTemplate(
+            defaultName: widget.countryName,
+            datas: snapshot.data!,
+          );
+        },
       ),
     );
   }
@@ -86,6 +85,8 @@ class _ListProvinceTemplateState extends State<ListProvinceTemplate> {
     final iconSize = 30.0;
 
     return ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         itemCount: widget.datas.length,
         itemBuilder: (context, index) {
           bool noProvinceData = widget.datas[index]['provinceState'] == null;
@@ -149,8 +150,7 @@ class _ListProvinceTemplateState extends State<ListProvinceTemplate> {
                       contentPadding: listPadding,
                       title: Text('Meninggal', style: captionStyle)),
                 ],
-                title: Text('$name',
-                    style: titleStyle)),
+                title: Text('$name', style: titleStyle)),
           );
         });
   }
