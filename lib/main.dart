@@ -68,34 +68,36 @@ class _MyHomePageState extends State<MyHomePage> {
       Center(child: Text('Setting'))
     ];
     
-    return Scaffold(
-        body: screens.elementAt(_index),
-        bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              color: mainBottomNavbarColor,
-            ),
-            child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                child: GNav(
-                  color: iconColor.withOpacity(0.6),
-                  activeColor: iconColor.withOpacity(0.8),
-                  rippleColor: Colors.grey[300]!,
-                  hoverColor: Colors.grey[100]!,
-                  tabBackgroundColor: Colors.grey[850]!,
-                  duration: Duration(milliseconds: 450),
-                  selectedIndex: _index,
-                  onTabChange: (index) {
-                    setState(() {
-                      _index = index;
-                    });
-                  },
-                  gap: 8,
-                  tabs: [
-                    GButton(padding: tabsPadding, icon: Icons.public, text: 'Global'),
-                    GButton(padding:tabsPadding,icon: Icons.list, text: 'Countries'),
-                    GButton(padding: tabsPadding, icon: Icons.settings, text: 'Setting')
-                  ],
-                ))));
+    return SafeArea(
+      child: Scaffold(
+          body: screens.elementAt(_index),
+          bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                color: mainBottomNavbarColor,
+              ),
+              child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                  child: GNav(
+                    color: iconColor.withOpacity(0.6),
+                    activeColor: iconColor.withOpacity(0.8),
+                    rippleColor: Colors.grey[300]!,
+                    hoverColor: Colors.grey[100]!,
+                    tabBackgroundColor: Colors.grey[850]!,
+                    duration: Duration(milliseconds: 450),
+                    selectedIndex: _index,
+                    onTabChange: (index) {
+                      setState(() {
+                        _index = index;
+                      });
+                    },
+                    gap: 8,
+                    tabs: [
+                      GButton(padding: tabsPadding, icon: Icons.public, text: 'Global'),
+                      GButton(padding:tabsPadding,icon: Icons.list, text: 'Countries'),
+                      GButton(padding: tabsPadding, icon: Icons.settings, text: 'Setting')
+                    ],
+                  )))),
+    );
   }
 }
