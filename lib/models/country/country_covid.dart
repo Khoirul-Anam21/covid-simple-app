@@ -13,14 +13,16 @@ class CovidCountry extends Covid {
   String? get getName {
     return name;
   }
+
   
 
   ///[getFetchConfirmed] getting fetch of confirmed count from specific country from the API service to get data
   @override
   Future<void> getFetchConfirmed() async {
+
     var service = APICovidService(countryName: name!);
     Map<String, dynamic> data = await service.getCountryDetail();
-    super.confirmed = data['deaths']['value'];
+    super.confirmed = data['confirmed']['value'];
   }
 
   ///[getFetchCured] getting fetch cured count from specific country from the API service to get data
@@ -36,7 +38,7 @@ class CovidCountry extends Covid {
   Future<void> getFetchDeath() async {
     var service = APICovidService(countryName: name!);
     Map<String, dynamic> data = await service.getCountryDetail();
-    super.death = data['confirmed']['value'];
+    super.death = data['deaths']['value'];
   }
 
   ///[getLastUpdate] getting fetch last update summary from specific country from the API service to get data

@@ -1,7 +1,7 @@
 import 'package:covid_simple_tracker/models/additional_stats.dart';
 import 'package:covid_simple_tracker/models/covid.dart';
 import 'package:covid_simple_tracker/services/api_global_service.dart';
-import 'package:flutter/foundation.dart';
+
 
 class CovidProvince extends Covid {
   @override

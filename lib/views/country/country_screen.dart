@@ -1,6 +1,7 @@
 import 'package:covid_simple_tracker/themes/mainColours.dart';
-import 'package:covid_simple_tracker/views/global/global_screen.dart';
+
 import 'package:covid_simple_tracker/views/country/list_countries.dart';
+import 'package:covid_simple_tracker/views/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class CountriesScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   @override
   Widget build(BuildContext context) {
     final topTitle = Theme.of(context).textTheme.headline6;
+    
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 25),
         child: SingleChildScrollView(
@@ -39,7 +41,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 ),
                 Column(
                   children: [
-                    Text('Daftar Negara', style: Theme.of(context).textTheme.headline5),
+                    Text('Daftar Negara',
+                        style: Theme.of(context).textTheme.headline5),
                     ListCountry(),
                   ],
                 )

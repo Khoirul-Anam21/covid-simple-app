@@ -174,7 +174,7 @@ class _CovidStatusIndicatorState extends State<CovidStatusIndicator> {
                   child: Column(
                     crossAxisAlignment: alignLeft,
                     children: <Widget>[
-                      Text('Sembuh', style: captionStyle),
+                      Text('Meninggal', style: captionStyle),
                       const SizedBox(height: 10),
                       Text('$death', style: bodyStyle),
                       Text('Kasus', style: captionStyle),

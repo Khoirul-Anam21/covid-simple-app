@@ -1,8 +1,8 @@
 import 'package:covid_simple_tracker/models/additional_stats.dart';
-import 'package:covid_simple_tracker/models/country/province_covid.dart';
-import 'package:covid_simple_tracker/models/covid.dart';
+
+
 import 'package:covid_simple_tracker/themes/mainColours.dart';
-import 'package:covid_simple_tracker/views/status_screen/status_template.dart';
+
 import 'package:flutter/material.dart';
 
 class ProvinceScreen extends StatefulWidget {

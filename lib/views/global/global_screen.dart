@@ -1,6 +1,7 @@
-import 'package:covid_simple_tracker/models/additional_stats.dart';
+
 import 'package:covid_simple_tracker/models/global/global_covid.dart';
-import 'package:covid_simple_tracker/themes/mainColours.dart';
+
+import 'package:covid_simple_tracker/views/search_screen.dart';
 import 'package:covid_simple_tracker/views/status_screen/status_template.dart';
 import 'package:flutter/material.dart';
 
@@ -33,31 +34,4 @@ class GlobalScreen extends StatelessWidget {
   }
 }
 
-class Searcher extends StatefulWidget {
-  Searcher({Key? key}) : super(key: key);
 
-  @override
-  _SearcherState createState() => _SearcherState();
-}
-
-class _SearcherState extends State<Searcher> {
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      style: Theme.of(context).textTheme.headline6,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: mainTextFieldBackGroundColor,
-          suffixIcon: IconButton(
-              color: iconColor, onPressed: () {}, icon: Icon(Icons.search)),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: borderColor)),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(width: 2, color: borderColor)),
-          )
-        
-    );
-  }
-}

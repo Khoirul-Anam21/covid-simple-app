@@ -1,8 +1,8 @@
 import 'package:covid_simple_tracker/models/country/country_covid.dart';
 import 'package:covid_simple_tracker/services/api_country_list.dart';
-import 'package:covid_simple_tracker/services/api_country_service.dart';
+
 import 'package:covid_simple_tracker/themes/mainColours.dart';
-import 'package:covid_simple_tracker/views/country/provice_screen.dart';
+
 import 'package:covid_simple_tracker/views/detail_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +51,7 @@ class _ListCountryState extends State<ListCountry> {
                 bool haveNoID = snapshot.data![index]['iso2'] == null;
                 return ListCountryTile(
 
-                  countries: snapshot.data!,
+                  country: snapshot.data![index],
                   index: index,
                   initial: haveNoID
                       ? '${countryName[0].toUpperCase()}${countryName[1].toUpperCase()}'
@@ -66,13 +66,13 @@ class ListCountryTile extends StatelessWidget {
   const ListCountryTile(
       {Key? key,
 
-      required this.countries,
+      required this.country,
       required this.index,
       this.initial})
       : super(key: key);
 
 
-  final List countries;
+  final Map country;
   final int index;
   final String? initial;
 
@@ -83,14 +83,14 @@ class ListCountryTile extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         title: Text(
-          countries[index]['name'],
+          country['name'],
           style: Theme.of(context).textTheme.headline6,
         ),
         onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => CountryDetail(
-                covidInfo: CovidCountry(countries[index]['name']),
+                covidInfo: CovidCountry(country['name']),
               ),
             )),
         tileColor: tileListColor,
