@@ -50,9 +50,7 @@ class _ListCountryState extends State<ListCountry> {
                 countryName = snapshot.data![index]['name'];
                 bool haveNoID = snapshot.data![index]['iso2'] == null;
                 return ListCountryTile(
-
                   country: snapshot.data![index],
-                  index: index,
                   initial: haveNoID
                       ? '${countryName[0].toUpperCase()}${countryName[1].toUpperCase()}'
                       : '${snapshot.data![index]['iso2']}',
@@ -67,13 +65,11 @@ class ListCountryTile extends StatelessWidget {
       {Key? key,
 
       required this.country,
-      required this.index,
       this.initial})
       : super(key: key);
 
 
   final Map country;
-  final int index;
   final String? initial;
 
   @override

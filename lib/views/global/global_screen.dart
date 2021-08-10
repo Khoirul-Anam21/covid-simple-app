@@ -1,7 +1,7 @@
 
 import 'package:covid_simple_tracker/models/global/global_covid.dart';
 
-import 'package:covid_simple_tracker/views/search_screen.dart';
+import 'package:covid_simple_tracker/views/search/search_screen.dart';
 import 'package:covid_simple_tracker/views/status_screen/status_template.dart';
 import 'package:flutter/material.dart';
 

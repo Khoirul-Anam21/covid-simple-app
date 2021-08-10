@@ -1,7 +1,7 @@
 import 'package:covid_simple_tracker/themes/mainColours.dart';
 
 import 'package:covid_simple_tracker/views/country/list_countries.dart';
-import 'package:covid_simple_tracker/views/search_screen.dart';
+import 'package:covid_simple_tracker/views/search/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class CountriesScreen extends StatefulWidget {
