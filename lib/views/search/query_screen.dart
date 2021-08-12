@@ -19,14 +19,20 @@ class CountryQuery extends StatelessWidget {
     }).toList();
 
     final List<Widget> children = [
-      Text('Anda Mencari... $searchValue', style: Theme.of(context).textTheme.caption,),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: Text('Anda Mencari... \"$searchValue\"', style: Theme.of(context).textTheme.caption,),
+      ),
       ...countriesTiles
     ];
 
     return Scaffold(
       appBar: AppBar(title: Text('Hasil Pencarian')),
-      body: ListView(
-        children: children,
+      body: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+        child: ListView(
+          children: children,
+        ),
       ),
     );
   }

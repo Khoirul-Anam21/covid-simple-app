@@ -56,14 +56,15 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _index = 0;
   EdgeInsets tabsPadding = EdgeInsets.symmetric(vertical: 12, horizontal: 18);
+
+  List<Widget> screens = <Widget>[
+    GlobalScreen(),
+    CountriesScreen(),
+    Center(child: Text('Setting'))
+  ];
   @override
   Widget build(BuildContext context) {
-    List<Widget> screens = <Widget>[
-      GlobalScreen(),
-      CountriesScreen(),
-      Center(child: Text('Setting'))
-    ];
-
+    final screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
